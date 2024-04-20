@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+body {
+    @apply text-white;
+}
+
 a {
     @apply text-blue-500;
 }

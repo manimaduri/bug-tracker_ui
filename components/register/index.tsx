@@ -1,21 +1,21 @@
 "use client";
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "next/link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Copyright from "../common/CopyRight";
-import registerValidationSchema from "./registerValidationSchema";
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
+import registerValidationSchema from "./registerValidationSchema";
+import { AiOutlineLock } from "react-icons/ai";
+import Link from "next/link";
 
 export default function Register() {
-  const { handleSubmit,touched, errors, getFieldProps } = useFormik({
+  const router = useRouter();
+  const today = new Date();
+  const eighteenYearsAgo = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate()
+  )
+    .toISOString()
+    .split("T")[0];
+  const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
@@ -27,125 +27,129 @@ export default function Register() {
     validationSchema: registerValidationSchema,
     onSubmit: (values) => {
       console.log(values);
+      router.push("/dashboard");
     },
   });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                required
-                fullWidth
+    <div className="flex items-center justify-center h-screen ">
+      <div className="flex flex-col items-center w-3/4 lg:w-1/2 p-8 bg-white rounded-lg shadow-md">
+        <div className="flex items-center justify-center w-16 h-16 mb-4 bg-gray-500 rounded-full">
+          <AiOutlineLock className="w-8 h-8 text-white" />
+        </div>
+        <h2 className="mb-2 text-lg font-bold text-gray-700">Sign up</h2>
+        <form className="w-full" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-3 rounded-md shadow-sm -space-y-px">
+            <div>
+              <label htmlFor="firstName" className="sr-only">
+                First Name
+              </label>
+              <input
                 id="firstName"
-                label="First Name"
-                autoFocus
+                type="text"
+                autoComplete="given-name"
+                className="w-full px-3 py-2 mb-1 border rounded-md outline-none text-base text-gray-600 placeholder-gray-400"
+                placeholder="First Name"
                 {...getFieldProps("firstName")}
-                error={touched.firstName && Boolean(errors.firstName)}
-                helperText={touched.firstName && errors.firstName}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
+              {touched.firstName && errors.firstName && (
+                <p className="text-red-500 text-sm">{errors.firstName}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="lastName" className="sr-only">
+                Last Name
+              </label>
+              <input
                 id="lastName"
-                label="Last Name"
+                type="text"
                 autoComplete="family-name"
+                className="w-full px-3 py-2 mb-1 border rounded-md outline-none text-base text-gray-600 placeholder-gray-400"
+                placeholder="Last Name"
                 {...getFieldProps("lastName")}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
+            </div>
+            <div>
+              <label htmlFor="email-address" className="sr-only">
+                Email address
+              </label>
+              <input
                 id="email"
-                label="Email Address"
-                {...getFieldProps("email")}
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
+                type="email"
                 autoComplete="email"
+                className="w-full px-3 py-2 mb-1 border rounded-md outline-none text-base text-gray-600 placeholder-gray-400"
+                placeholder="Email address"
+                {...getFieldProps("email")}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                {...getFieldProps("password")}
-                error={touched.password && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                {...getFieldProps("confirmPassword")}
-                label="Confirm Password"
-                type="password"
-                id="confirmPassword"
-                autoComplete="new-password"
-                error={
-                  touched.confirmPassword && Boolean(errors.confirmPassword)
-                }
-                helperText={touched.confirmPassword && errors.confirmPassword}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
+              {touched.email && errors.email && (
+                <p className="text-red-500 text-sm">{errors.email}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="dateOfBirth" className="sr-only">
+                Date of Birth
+              </label>
+              <input
                 id="dateOfBirth"
-                label="Date of Birth"
-                {...getFieldProps("dateOfBirth")}
                 type="date"
-                error={touched.dateOfBirth && Boolean(errors.dateOfBirth)}
-                helperText={touched.dateOfBirth && errors.dateOfBirth}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                    max: new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0],
-                  }}
+                className="w-full px-3 py-2 mb-1 border rounded-md outline-none text-base text-gray-600 placeholder-gray-400"
+                placeholder="Date of Birth"
+                max={eighteenYearsAgo}
+                {...getFieldProps("dateOfBirth")}
               />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link href="/">Already have an account? Sign in</Link>
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-      <Copyright sx={{ mt: 3 }} />
-    </Container>
+              {touched.dateOfBirth && errors.dateOfBirth && (
+                <p className="text-red-500 text-sm">{errors.dateOfBirth}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                className="w-full px-3 py-2 mb-1 border rounded-md outline-none text-base text-gray-600 placeholder-gray-400"
+                placeholder="Password"
+                {...getFieldProps("password")}
+              />
+              {touched.password && errors.password && (
+                <p className="text-red-500 text-sm">{errors.password}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="confirmPassword" className="sr-only">
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                autoComplete="current-password"
+                className="w-full px-3 py-2 mb-1 border rounded-md outline-none text-base text-gray-600 placeholder-gray-400"
+                placeholder="Confirm Password"
+                {...getFieldProps("confirmPassword")}
+              />
+              {touched.confirmPassword && errors.confirmPassword && (
+                <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="w-full py-2 mt-4 text-sm font-semibold text-white bg-gray-800 rounded-lg"
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
+        <p className="mt-4 text-sm">
+          <Link href="/" className="text-blue-500 hover:text-blue-600">
+            Already have an account? Sign in
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }

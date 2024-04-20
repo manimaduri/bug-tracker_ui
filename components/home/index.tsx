@@ -1,135 +1,66 @@
-"use client";
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "next/link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { useFormik } from "formik";
-import loginValidationSchema from "./loginValidationSchema";
-import Copyright from "../common/CopyRight";
-
-
+'use client';
+import React from 'react';
+import Link from "next/link"
+import { useFormik } from 'formik';
+import loginValidationSchema from './loginValidationSchema';
+import { useRouter } from 'next/navigation';
+import { AiOutlineLock } from 'react-icons/ai';
 
 export default function Home() {
-  const { handleSubmit, handleChange, handleBlur, values, touched, errors } =
-    useFormik({
-      initialValues: { email: "", password: "" },
-      validationSchema: loginValidationSchema,
-      onSubmit: (values) => {
-        console.log(values);
-      },
-      validateOnChange: true,
-    });
+  const router = useRouter();
+  const { handleSubmit, handleChange, handleBlur, values, touched, errors } = useFormik({
+    initialValues: { email: '', password: '' },
+    validationSchema: loginValidationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      router.push('/dashboard');
+    },
+    validateOnChange: true,
+  });
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
-      <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+    <div className="flex items-center justify-center h-screen ">
+      <div className="flex flex-col items-center w-3/4 lg:w-1/2 p-8 bg-white rounded-lg shadow-md">
+        <div className="flex items-center justify-center w-16 h-16 mb-4 bg-gray-500 rounded-full">
+          <AiOutlineLock className="w-8 h-8 text-white" />
+        </div>
+        <h2 className="mb-2 text-lg font-bold text-gray-700">Login</h2>
+        <form className="w-full" onSubmit={handleSubmit}>
+          <input
+            className="w-full px-3 py-2 mb-3 border rounded-md outline-none text-sm text-gray-600 placeholder-gray-400"
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.email && errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+          <input
+            className="w-full px-3 py-2 mb-3 border rounded-md outline-none text-sm text-gray-600 placeholder-gray-400"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.password && errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
+          <div className="flex items-center justify-between">
+            <label className="flex items-center">
+              <input type="checkbox" className="form-checkbox" />
+              <span className="ml-2 text-gray-500">Remember me</span>
+            </label>
+            <Link href="#" className="text-xs text-gray-500 hover:text-gray-600">Forgot password?</Link>
+          </div>
+          <button type="submit" className="w-full py-2 mt-4 text-sm font-semibold text-white bg-gray-800 rounded-lg">
             Login
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.email && Boolean(errors.email)}
-              helperText={touched.email && errors.email ? errors.email : " "}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.password && Boolean(errors.password)}
-              helperText={
-                touched.password && errors.password ? errors.password : " "
-              }
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Login
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/register">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ mt: 5 }} />
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+          </button>
+        </form>
+        <p className="mt-4 text-xs text-blue-500">
+          Don't have an account? <Link href="/register" className=" hover:text-blue-600">Sign Up</Link>
+        </p>
+      </div>
+    </div>
   );
 }

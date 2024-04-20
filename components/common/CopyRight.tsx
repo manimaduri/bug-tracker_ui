@@ -1,24 +1,17 @@
 import Link from "next/link";
-import Typography from "@mui/material/Typography";
-
 
 function Copyright(props: any) {
-    const { fdprocessedid, ...rest } = props;
-    return (
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-        {...rest}
-      >
-        {"Copyright © "}
-        <Link color="inherit" href="">
-          Bug Tracker
-        </Link>{" "}
-        {new Date().getFullYear()}
-        {"."}
-      </Typography>
-    );
-  }
+  const { fdprocessedid, ...rest } = props;
+  return (
+    <div className="text-center text-gray-700" {...rest}>
+      {"Copyright © "}
+      <Link href="" className=" underline">
+        Bug Tracker
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </div>
+  );
+}
 
 export default Copyright;
