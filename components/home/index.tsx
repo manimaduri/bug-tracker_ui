@@ -14,24 +14,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import loginValidationSchema from "./loginValidationSchema";
+import Copyright from "../common/CopyRight";
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="">
-        Bug Tracker
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+
 
 export default function Home() {
   const { handleSubmit, handleChange, handleBlur, values, touched, errors } =
