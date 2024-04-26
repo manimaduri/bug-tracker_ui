@@ -24,7 +24,7 @@ const Sidebar = () => {
   return (
     path !== "/" &&
     path !== "/register" && (
-      <div className="hidden lg:flex lg:flex-col lg:w-64  text-white h-screen px-4 pt-3 pb-8 border-r-2 border-gray-700">
+      <div className="hidden lg:flex lg:flex-col lg:w-64  text-white  px-4 pt-3 pb-8 border-r-2 border-gray-700">
         <h2 className="text-xl font-bold mb-4">Menu</h2>
         <ul>
           {loggedInMenuItems.map((link) => (

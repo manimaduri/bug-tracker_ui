@@ -56,7 +56,7 @@ const Projects = () => {
     {/* head */}
     <thead>
       <tr>
-        <th></th>
+        <th>#</th>
         <th>Project Name</th>
         <th>Progress%</th>
         <th>Owner</th>
