@@ -1,10 +1,11 @@
 import BugDetails from '@/components/bug-details'
+import BreadCrumb from '@/components/common/BreadCrumb'
 import React from 'react'
 
 const BugDetailsPage = () => {
   return (
     <>
-    <h2 className='text-2xl mb-4'>Bug Details</h2>
+    <BreadCrumb title="Bug Details" />
     <BugDetails/>
     </>
   )

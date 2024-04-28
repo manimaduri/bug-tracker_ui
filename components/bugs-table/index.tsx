@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react'
 
 const BugsTable = () => {
@@ -28,7 +29,7 @@ const BugsTable = () => {
       <table className="table">
         {/* head */}
         <thead>
-          <tr>
+          <tr className='text-center'>
             <th>#</th>
             <th>Bug</th>
             <th>Assignee</th>
@@ -38,20 +39,20 @@ const BugsTable = () => {
             <th>Created At</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='text-center'>
           {bugs.map((bug) => (
             <tr className="hover" key={bug.id}>
               <th>{bug.id}</th>
               <td>{bug.name}</td>
               <td>
-                <div className="avatar flex items-center">
+                <div className="avatar flex items-center justify-center">
                   {bug.assignee.avatar ? (
-                    <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
-                      <img className="object-cover" src={bug.assignee.avatar} alt="avatar" />
+                    <div className= "w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+                      <Image height={40} width={40} className="object-cover" src={bug.assignee.avatar} alt="avatar" />
                     </div>
                   ) : (
                     <div className="avatar placeholder">
-                      <div className="bg-neutral text-neutral-content rounded-full w-10 h-10">
+                      <div className="bg-neutral text-neutral-content rounded-full  w-10 h-10">
                         <span className="text-xs">{bug.assignee.firstName[0]}{bug.assignee.lastName[0]}</span>
                       </div>
                     </div>
@@ -60,14 +61,14 @@ const BugsTable = () => {
                 </div>
               </td>
               <td>
-                <div className="avatar flex items-center">
+                <div className="avatar flex items-center justify-center">
                   {bug.reporter.avatar ? (
-                    <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
-                      <img className="object-cover" src={bug.reporter.avatar} alt="avatar" />
+                    <div className= "w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+                      <Image height={40} width={40} className="object-cover" src={bug.reporter.avatar} alt="avatar" />
                     </div>
                   ) : (
                     <div className="avatar placeholder">
-                      <div className="bg-neutral text-neutral-content rounded-full w-10 h-10">
+                      <div className="bg-neutral text-neutral-content rounded-full  w-10 h-10">
                         <span className="text-xs">{bug.reporter.firstName[0]}{bug.reporter.lastName[0]}</span>
                       </div>
                     </div>

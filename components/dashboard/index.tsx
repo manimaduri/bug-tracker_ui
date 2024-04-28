@@ -4,11 +4,12 @@ import {
   AiOutlineProject,
   AiOutlineCheckCircle,
 } from "react-icons/ai";
+import BreadCrumb from "../common/BreadCrumb";
 
 const Dashboard = () => {
   return (
     <div>
-      <h2 className="mb-4 text-2xl">Welcome Manikanta Maduri</h2>
+      <BreadCrumb title="Welcome Manikanta Maduri" />
       <div className="stats shadow" data-theme="light">
         <div className="stat">
           <div className="stat-figure text-primary">
@@ -37,7 +38,7 @@ const Dashboard = () => {
           <div className="stat-desc text-secondary">50 bugs still open</div>
         </div>
       </div>
-      <div className="p-6" >
+      <div className="p-6 pl-0" >
       <div className="card bordered">
         <div className="card-body">
           <h2 className="card-title">My Bugs</h2>
