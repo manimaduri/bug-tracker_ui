@@ -1,5 +1,5 @@
 import BreadCrumb from "@/components/common/BreadCrumb";
-import CreateProject from "@/components/create-project/Index";
+import CreateProject from "@/components/new-project";
 import { Metadata } from "next";
 import React from "react";
 
