@@ -54,7 +54,10 @@ const Projects = () => {
     <>
       <h3 className="mb-4 text-2xl flex  justify-between">
         <span>Projects</span>
-        <Link href="/projects/create-project" className="text-white text-sm flex justify-center items-center">
+        <Link
+          href="/projects/create-project"
+          className="text-white text-sm flex justify-center items-center"
+        >
           Create Projects
           <FaPlus className="mx-1" />
         </Link>
@@ -78,7 +81,14 @@ const Projects = () => {
             {projects.map((project) => (
               <tr key={project.id}>
                 <th>{project.id}</th>
-                <td>{project.name}</td>
+                <td>
+                  <Link
+                    className="text-inherit"
+                    href={`/projects/${project.id}`}
+                  >
+                    {project.name}
+                  </Link>
+                </td>
                 <td>{project.progress}%</td>
                 <td>{project.owner}</td>
                 <td>{project.status}</td>
