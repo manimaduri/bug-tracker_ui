@@ -22,7 +22,7 @@ export default function RootLayout({
         <Navbar/>
         <div className="lg:flex pt-16">
           <Sidebar />
-          <div className="lg:w-full pl-3 pt-3">
+          <div className="lg:w-full px-3 pt-3">
             {children}
           </div>
         </div>

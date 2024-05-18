@@ -1,5 +1,6 @@
 import React from "react";
-import BreadCrumb from "../common/BreadCrumb";
+import Link from "next/link";
+import { FaPlus } from "react-icons/fa";
 
 const Projects = () => {
   const projects = [
@@ -51,7 +52,13 @@ const Projects = () => {
   ];
   return (
     <>
-      <BreadCrumb title="Projects" />
+      <h3 className="mb-4 text-2xl flex  justify-between">
+        <span>Projects</span>
+        <Link href="/projects/create-project" className="text-white text-sm flex justify-center items-center">
+          Create Projects
+          <FaPlus className="mx-1" />
+        </Link>
+      </h3>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
