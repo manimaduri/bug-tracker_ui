@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
           <button tabIndex={0} type="button" >
         <AiOutlineMenu className="h-6 w-6 text-white ml-2"/>
       </button>
-      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+      <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         {loggedInMenuItems.map((item) => (
           <li key={item.id}>
             <Link href={item.href} className={isActiveLink(path,item.href) ? "text-blue-500" : "text-white"}>
@@ -89,10 +89,10 @@ const Navbar: React.FC = () => {
           </li>
         ))}
         <li >
-          <span onClick={handleLogout}>
+          <button onClick={handleLogout}>
                 <AiOutlineLogout />
                 Logout
-          </span>
+          </button>
           </li>
       </ul>
     </div>

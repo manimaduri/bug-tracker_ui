@@ -39,12 +39,12 @@ const Sidebar = () => {
           ))}
           <li
             className="mb-2 hover:bg-gray-700 px-2 py-1 rounded"
-            onClick={handleLogout}
+            
           >
-            <span className="flex items-center">
+            <button className="flex items-center" onClick={handleLogout}>
               <AiOutlineLogout className="h-6 w-6 mr-2" />
               Logout
-            </span>
+            </button>
           </li>
         </ul>
       </div>

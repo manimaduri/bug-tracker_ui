@@ -2,18 +2,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import Select, {
-  OptionProps,
-  SingleValueProps,
-  StylesConfig,
-  CSSObjectWithLabel,
-} from "react-select";
-
-interface OptionType {
-  label: string;
-  value: string;
-  avatar: string;
-}
+import SelectWithImage, { OptionType } from "../common/SelectWithImage";
 
 const options: OptionType[] = [
   {
@@ -36,50 +25,18 @@ const options: OptionType[] = [
   },
 ];
 
-const customStyles: StylesConfig<OptionType, false> = {
-  option: (
-    provided: CSSObjectWithLabel,
-    state: OptionProps<OptionType, false>
-  ) => ({
-    ...provided,
-    padding: 10,
-    display: "flex",
-    alignItems: "center",
-  }),
-  singleValue: (
-    provided: CSSObjectWithLabel,
-    state: SingleValueProps<OptionType>
-  ) => ({
-    ...provided,
-    display: "flex",
-    alignItems: "center",
-  }),
-};
-
-const formatOptionLabel = ({ label, avatar }: OptionType) => (
-  <div style={{ display: "flex", alignItems: "center" }}>
-    <img
-      src={avatar}
-      alt={label}
-      style={{ marginRight: 10, width: 20, height: 20, borderRadius: "50%" }}
-    />
-    {label}
-  </div>
-);
-
 const validationSchema = yup.object({
   assignee: yup.string().required("Required"),
-  status: yup.string().required("Required"),
   priority: yup.string().required("Required"),
-  classification: yup.string().required("Required"),
+  bugName: yup.string().required("Required"),
   description: yup.string().required("Required"),
 });
 
 const CreateBug = () => {
   const formik = useFormik({
     initialValues: {
+      bugName: "",
       assignee: "",
-      status: "",
       priority: "",
       classification: "",
       description: "",
@@ -90,6 +47,8 @@ const CreateBug = () => {
     },
   });
 
+
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="grid grid-cols-2 items-center gap-4">
@@ -99,8 +58,14 @@ const CreateBug = () => {
             id="bugName"
             name="bugName"
             type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.bugName}
             data-theme="cupcake"
           ></input>
+          {formik.touched.bugName && formik.errors.bugName ? (
+            <div className="form-error">{formik.errors.bugName}</div>
+          ) : null}
         </div>
         <div className="form-control col-span-2">
           <label htmlFor="description">Description</label>
@@ -118,16 +83,15 @@ const CreateBug = () => {
         </div>
         <div className="form-control col-span-1">
           <label htmlFor="assignee">Assignee</label>
-          <Select
+          <SelectWithImage
             id="assignee"
             name="assignee"
             options={options}
-            styles={customStyles}
-            formatOptionLabel={formatOptionLabel}
             menuPlacement="auto"
-            onChange={(option) =>
-              formik.setFieldValue("assignee", option!.value)
-            }
+            onChange={(option) => {
+              formik.setFieldValue("assignee", option!.value);
+              console.log(option?.value);
+            }}
           />
           {formik.touched.assignee && formik.errors.assignee ? (
             <div className="form-error">{formik.errors.assignee}</div>
@@ -135,12 +99,10 @@ const CreateBug = () => {
         </div>
         <div className="form-control col-span-1">
           <label htmlFor="priority">Priority</label>
-          <Select
+          <SelectWithImage
             id="priority"
             name="priority"
             options={options}
-            styles={customStyles}
-            formatOptionLabel={formatOptionLabel}
             menuPlacement="auto"
             onChange={(option) =>
               formik.setFieldValue("priority", option!.value)
@@ -152,22 +114,16 @@ const CreateBug = () => {
         </div>
         <div className="form-control col-span-1">
           <label htmlFor="assignee">Classification</label>
-          <Select
+          <SelectWithImage
             id="classification"
             name="classification"
             options={options}
-            styles={customStyles}
-            formatOptionLabel={formatOptionLabel}
             menuPlacement="auto"
             onChange={(option) =>
               formik.setFieldValue("classification", option!.value)
             }
           />
-          {formik.touched.classification && formik.errors.classification ? (
-            <div className="form-error">{formik.errors.classification}</div>
-          ) : null}
         </div>
-
 
         <button type="submit" className="btn w-1/4 col-span-2">
           Submit

@@ -4,18 +4,7 @@ import { FaFolderOpen } from "react-icons/fa";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
-import Select, {
-  OptionProps,
-  SingleValueProps,
-  StylesConfig,
-  CSSObjectWithLabel,
-} from "react-select";
-
-interface OptionType {
-  label: string;
-  value: string;
-  avatar: string;
-}
+import SelectWithImage, { OptionType } from "../common/SelectWithImage";
 
 const options: OptionType[] = [
   {
@@ -38,36 +27,7 @@ const options: OptionType[] = [
   },
 ];
 
-const customStyles: StylesConfig<OptionType, false> = {
-  option: (
-    provided: CSSObjectWithLabel,
-    state: OptionProps<OptionType, false>
-  ) => ({
-    ...provided,
-    padding: 10,
-    display: "flex",
-    alignItems: "center",
-  }),
-  singleValue: (
-    provided: CSSObjectWithLabel,
-    state: SingleValueProps<OptionType>
-  ) => ({
-    ...provided,
-    display: "flex",
-    alignItems: "center",
-  }),
-};
 
-const formatOptionLabel = ({ label, avatar }: OptionType) => (
-  <div style={{ display: "flex", alignItems: "center" }}>
-    <img
-      src={avatar}
-      alt={label}
-      style={{ marginRight: 10, width: 20, height: 20, borderRadius: "50%" }}
-    />
-    {label}
-  </div>
-);
 const BugDetails = () => {
   return (
     <>
@@ -109,8 +69,8 @@ const BugDetails = () => {
           alt="bug"
           width={300}
           height={300}
-          objectFit="contain"
           className="rounded my-2"
+          priority
         />
         <p>This is a possible description or not</p>
       </div>
@@ -119,11 +79,9 @@ const BugDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
           <div className="col-span-1  grid grid-cols-3 gap-4 items-center">
             <p className="col-span-1">Assignee</p>
-            <Select
+            <SelectWithImage
               menuPlacement="auto"
               options={options}
-              styles={customStyles}
-              formatOptionLabel={formatOptionLabel}
               className="col-span-2"
             />
           </div>
@@ -132,11 +90,9 @@ const BugDetails = () => {
           <div className="col-span-1 grid grid-cols-3 gap-2 items-center">
             <p className="col-span-1">Status</p>
 
-            <Select
+            <SelectWithImage
               menuPlacement="auto"
               options={options}
-              styles={customStyles}
-              formatOptionLabel={formatOptionLabel}
               className="col-span-2"
             />
           </div>
@@ -145,11 +101,9 @@ const BugDetails = () => {
           <div className="col-span-1 grid grid-cols-3 gap-2 items-center">
             <p className="col-span-1 break-words">Priority</p>
 
-            <Select
+            <SelectWithImage
               menuPlacement="auto"
               options={options}
-              styles={customStyles}
-              formatOptionLabel={formatOptionLabel}
               className="col-span-2"
             />
           </div>
@@ -158,11 +112,9 @@ const BugDetails = () => {
           <div className="col-span-1 grid grid-cols-3 gap-2 items-center">
             <p className="col-span-1 break-words">Classification</p>
 
-            <Select
+            <SelectWithImage
               menuPlacement="auto"
               options={options}
-              styles={customStyles}
-              formatOptionLabel={formatOptionLabel}
               className="col-span-2"
             />
           </div>
@@ -180,7 +132,6 @@ const BugDetails = () => {
             width={40}
             height={40}
             className="rounded-full w-10 h-10"
-            objectFit="contain"
           />
           <input
             type="text"
@@ -199,7 +150,6 @@ const BugDetails = () => {
               width={40}
               height={40}
               className="rounded-full w-10 h-10"
-              objectFit="contain"
             />
             <div className="flex-grow">
               <p className="text-sm font-semibold">Manikanta</p>
