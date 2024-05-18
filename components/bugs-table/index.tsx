@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 
 const BugsTable = () => {
@@ -43,7 +44,7 @@ const BugsTable = () => {
           {bugs.map((bug) => (
             <tr className="hover" key={bug.id}>
               <th>{bug.id}</th>
-              <td>{bug.name}</td>
+              <td><Link href={`bug/${bug.id}`} className='text-white'>{bug.name}</Link></td>
               <td>
                 <div className="avatar flex items-center justify-center">
                   {bug.assignee.avatar ? (
