@@ -1,7 +1,13 @@
 import BugsTable from "@/components/bugs-table";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
+
+export const metadata : Metadata = {
+  title: 'All Bugs - Bug Tracker',
+  description: 'All Bugs page'
+};
 
 const AllBugsPage = () => {
   return (
