@@ -19,13 +19,13 @@ export default function Home() {
   });
 
   return (
-    <div className="flex items-center justify-center h-screen ">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="flex flex-col items-center w-3/4 lg:w-1/2 p-8 bg-white rounded-lg shadow-md">
         <div className="flex items-center justify-center w-16 h-16 mb-4 bg-gray-500 rounded-full">
           <AiOutlineLock className="w-8 h-8 text-white" />
         </div>
         <h2 className="mb-2 text-lg font-bold text-gray-700">Login</h2>
-        <form className="w-full" onSubmit={handleSubmit}>
+        <form className="w-full" onSubmit={handleSubmit} data-theme="light">
           <input
             className="w-full px-3 py-2 mb-3 border rounded-md outline-none text-sm text-gray-600 placeholder-gray-400"
             type="email"
