@@ -2,6 +2,8 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { employeeRegisterValidationSchema } from "./registerValidationSchema";
+import { registerServerAction } from "@/app/server-actions/actions";
+import { EMPLOYEE_ROLE } from "@/constants";
 
 
 
@@ -26,11 +28,17 @@ export default function EmployeeForm() {
       password: "",
       confirmPassword: "",
       dateOfBirth: "",
+      role:EMPLOYEE_ROLE
     },
     validationSchema: employeeRegisterValidationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      router.push("/dashboard");
+    onSubmit: async (values) => {
+      try {
+        await registerServerAction(values);
+        router.push("/dashboard");
+      } catch (error) {
+        console.error('Registration failed:', error);
+        // Optionally, handle the error (e.g., show an error message to the user)
+      }
     },
   });
 

@@ -6,8 +6,23 @@ import {
 } from "react-icons/ai";
 import BreadCrumb from "../common/BreadCrumb";
 import Link from "next/link";
+// import { cookies } from "next/headers";
 
 const Dashboard = () => {
+  // const userCookie = cookies().get("user")?.value;
+  // const token = cookies().get("access_token")?.value;
+  // console.log("User cookie:", userCookie);
+  // console.log("Token cookie:", token);
+  let role = null;
+
+  // if (userCookie) {
+  //   try {
+  //     const user = JSON.parse(userCookie);
+  //     role = user.role;
+  //   } catch (error) {
+  //     console.error("Failed to parse user cookie:", error);
+  //   }
+  // }
   const issues = [
     { id: 1, title: "Login not working", source: "naukri" },
     { id: 2, title: "Logout not working", source: "naukri" },
@@ -15,7 +30,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <BreadCrumb title="Welcome Manikanta Maduri" />
+      <BreadCrumb title={`"Welcome Manikanta Maduri" ${role ?? "none"}`} />
       <div className="stats shadow" data-theme="light">
         <div className="stat">
           <div className="stat-figure text-primary">

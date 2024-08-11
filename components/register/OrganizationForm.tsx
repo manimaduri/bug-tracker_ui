@@ -2,6 +2,8 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { organizationRegisterValidationSchema } from "./registerValidationSchema";
+import { ORGANIZATION_ROLE } from "@/constants";
+import { registerServerAction } from "@/app/server-actions/actions";
 
 export default function OrganizationForm() {
   const router = useRouter();
@@ -13,11 +15,22 @@ export default function OrganizationForm() {
       mobileNumber: "",
       password: "",
       confirmPassword: "",
+      role:ORGANIZATION_ROLE
     },
     validationSchema: organizationRegisterValidationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      router.push("/dashboard");
+    onSubmit: async (values) => {
+      try {
+        const response = await registerServerAction(values);
+        if (response.success) {
+          router.push("/dashboard");
+        } else {
+          console.log('Registration failed:', response.message);
+          // Optionally, handle the error (e.g., show an error message to the user)
+        }
+      } catch (error) {
+        console.error('Registration failed:', error);
+        // Optionally, handle the error (e.g., show an error message to the user)
+      }
     },
   });
 
