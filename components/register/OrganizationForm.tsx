@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { organizationRegisterValidationSchema } from "./registerValidationSchema";
 import { ORGANIZATION_ROLE } from "@/constants";
-import { registerServerAction } from "@/app/server-actions/actions";
+import { registerServerAction } from "@/app/server-actions/authActions";
 
 export default function OrganizationForm() {
   const router = useRouter();
