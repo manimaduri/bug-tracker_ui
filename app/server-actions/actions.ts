@@ -11,7 +11,6 @@ interface RequestOptions {
   headers?: HeadersInit;
 }
 
-
 const formatPayload = (payload: any): any => {
   if (!payload) return undefined;
   return payload instanceof FormData ? payload : JSON.stringify(payload);
@@ -33,15 +32,11 @@ export const apiRequest = async <T>({ method, endpoint, payload, headers = {} }:
       body: formatPayload(payload),
     });
 
-    if (!response.ok) {
-      const errorResponse = await response.json();
-      return { data: errorResponse };
-    }
+    const responseData = await response.json();
 
-    const data: T = await response.json();
-    return { data };
+    return responseData;
   } catch (error: any) {
     console.error('Error during API request:', error);
-    return { error: error?.message };
+    return { success: false, data: error?.message, statusCode: 500 };
   }
 };

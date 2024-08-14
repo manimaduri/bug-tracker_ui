@@ -1,3 +1,4 @@
+"use server";
 import { REGISTER } from "@/constants";
 import { apiRequest } from "./actions";
 import { cookies } from "next/headers";
@@ -12,10 +13,6 @@ export const registerServerAction = async (data: any): Promise<ApiResponse<Regis
     payload: data,
   });
 
-  if (response.error) {
-    console.error('Error during registration:', response.error);
-    return response;
-  }
 
   if (response.data?.token && response.data?.user) {
     const cookieStore = cookies();

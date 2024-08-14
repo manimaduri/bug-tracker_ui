@@ -24,7 +24,7 @@ export default function OrganizationForm() {
         if (response.success) {
           router.push("/dashboard");
         } else {
-          console.log('Registration failed:', response.message);
+          console.log('Registration failed:', response.data);
           // Optionally, handle the error (e.g., show an error message to the user)
         }
       } catch (error) {
