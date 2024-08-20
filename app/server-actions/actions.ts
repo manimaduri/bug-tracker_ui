@@ -33,10 +33,13 @@ export const apiRequest = async <T>({ method, endpoint, payload, headers = {} }:
     });
 
     const responseData = await response.json();
+    if (!response.ok || !responseData?.success) {
+      throw new Error(responseData?.message || responseData?.data || 'Something went wrong');
+    }
 
     return responseData;
   } catch (error: any) {
     console.error('Error during API request:', error);
-    return { success: false, data: error?.message, statusCode: 500 };
-  }
+    throw new Error(error?.message || 'Unknown error occurred');
+}
 };

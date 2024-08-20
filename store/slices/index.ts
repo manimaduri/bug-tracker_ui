@@ -20,7 +20,7 @@ export default function sliceCreator<T>(sliceName: string, endPoint: string, met
         });
         return response.data;
       } catch (err: any) {
-        return rejectWithValue(err.response.data);
+        return rejectWithValue(err?.message || 'Something went wrong');
       }
     }
   );
@@ -55,7 +55,7 @@ export default function sliceCreator<T>(sliceName: string, endPoint: string, met
           state.loading = false;
           state.successData = null;
           state.error = true;
-          state.errorInfo = action.payload;
+          state.errorInfo = action.payload || 'Something went wrong';
         })
         .addCase(action.fulfilled, (state, action: PayloadAction<T | undefined>) => {
           state.loading = false;

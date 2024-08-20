@@ -1,9 +1,11 @@
+"use cleint";
 import { RegisterResponse } from '@/types/auth';
 import sliceCreator from '..';
+import { REGISTER } from '@/constants';
 
-const registerSlice = sliceCreator<RegisterResponse>('register', '/register', 'POST');
+const registerSlice = sliceCreator<RegisterResponse>('registerAction', REGISTER, 'POST');
 
-const { reducer: registerReducer, asyncAction: registerAction, clearData: clearRegisterData } = registerSlice;
+const { reducer: registerReducer, asyncAction: registerAction, clearData: clearRegisterDataAction } = registerSlice;
 
 export default registerReducer;
-export { registerAction, clearRegisterData };
+export { registerAction, clearRegisterDataAction };

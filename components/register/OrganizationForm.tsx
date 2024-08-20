@@ -3,10 +3,29 @@ import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { organizationRegisterValidationSchema } from "./registerValidationSchema";
 import { ORGANIZATION_ROLE } from "@/constants";
-import { registerServerAction } from "@/app/server-actions/authActions";
+// import { registerServerAction } from "@/app/server-actions/authActions";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { clearRegisterDataAction, registerAction } from "@/store/actions";
+import { useEffect } from "react";
 
 export default function OrganizationForm() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  //destructure reducer registerReducer and rename te loading etc to registerLoading etc
+  const { loading: registerLoading, error: registerError, successData: registerData, errorInfo: registerErrorInfo } = useAppSelector((state) => state.registerReducer);
+
+//console log the registerData etc all states in effect if they exist 
+useEffect(() => {
+  if (registerData) {
+    console.log('Registration successful:', registerData);
+    dispatch(clearRegisterDataAction());
+    router.push("/dashboard");
+  }else if (registerError) {
+    console.log('Registration failed:', registerErrorInfo);
+  }
+}, [registerData, registerError, registerErrorInfo, registerLoading]);
+
   
   const { handleSubmit, touched, errors, getFieldProps } = useFormik({
     initialValues: {
@@ -20,13 +39,15 @@ export default function OrganizationForm() {
     validationSchema: organizationRegisterValidationSchema,
     onSubmit: async (values) => {
       try {
-        const response = await registerServerAction(values);
-        if (response.success) {
-          router.push("/dashboard");
-        } else {
-          console.log('Registration failed:', response.data);
-          // Optionally, handle the error (e.g., show an error message to the user)
-        }
+        dispatch(registerAction(values));
+        // const response = await registerServerAction(values);
+        // if (response.success) {
+        //   router.push("/dashboard");
+        // } else {
+        //   console.log('Registration failed:', response.data);
+        //   // Optionally, handle the error (e.g., show an error message to the user)
+        // }
+
       } catch (error) {
         console.error('Registration failed:', error);
         // Optionally, handle the error (e.g., show an error message to the user)
@@ -122,7 +143,7 @@ export default function OrganizationForm() {
               type="submit"
               className="w-full py-2 mt-4 text-sm font-semibold text-white bg-gray-800 rounded-lg"
             >
-              Sign up as Organization
+             {registerLoading ?"loading...." :" Sign up as Organization"}
             </button>
           </div>
         </form>
