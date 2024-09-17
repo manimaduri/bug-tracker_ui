@@ -1,4 +1,4 @@
-"use cleint";
+"use client";
 import { RegisterResponse } from '@/types/auth';
 import sliceCreator from '..';
 import { REGISTER } from '@/constants';
